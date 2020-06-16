@@ -1,0 +1,9 @@
+@startuml
+
+class de.elnarion.test.domain.t0021.package1.ClassA {
+}
+
+class de.elnarion.test.domain.t0021.package2.ClassB {
+}
+
+@enduml

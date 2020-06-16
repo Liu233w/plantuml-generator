@@ -810,6 +810,7 @@ public class PlantUMLClassDiagramGenerator {
 		if (plantUMLConfig.getBlacklistRegexp() != null) {
 			resultSet = applyBlacklistRegExp(resultSet);
 		}
+		resultSet.addAll(plantUMLConfig.getAdditionalClasses());
 		return resultSet;
 	}
 

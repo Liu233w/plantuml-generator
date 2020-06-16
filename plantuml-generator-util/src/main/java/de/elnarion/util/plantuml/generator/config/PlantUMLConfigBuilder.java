@@ -136,6 +136,12 @@ public class PlantUMLConfigBuilder {
         return this;
     }
 
+    public PlantUMLConfigBuilder withAdditionalClasses(Class clazz) {
+        if (clazz != null)
+            plantUMLConfig.getAdditionalClasses().add(clazz);
+        return this;
+    }
+
     /**
      * @return PlantUMLConfig
      */

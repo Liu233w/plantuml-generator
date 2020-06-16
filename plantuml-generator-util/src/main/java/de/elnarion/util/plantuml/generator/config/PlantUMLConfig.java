@@ -23,6 +23,7 @@ public class PlantUMLConfig {
 	private VisibilityType maxVisibilityMethods = VisibilityType.PRIVATE;
 	private List<ClassifierType> fieldClassifierToIgnore = new ArrayList<>();
 	private List<ClassifierType> methodClassifierToIgnore = new ArrayList<>();
+    private List<Class<?>> additionalClasses = new ArrayList<>();
 
 	protected PlantUMLConfig() {
 		// default constructor with protected visibility because of corresponding
@@ -252,4 +253,11 @@ public class PlantUMLConfig {
 		this.maxVisibilityMethods = maxVisibilityMethods;
 	}
 
+    public List<Class<?>> getAdditionalClasses() {
+        return additionalClasses;
+    }
+
+    public void setAdditionalClasses(List<Class<?>> additionalClasses) {
+        this.additionalClasses = additionalClasses;
+    }
 }

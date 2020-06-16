@@ -9,6 +9,7 @@ import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.elnarion.test.domain.t0021.package2.ClassB;
 import org.apache.commons.io.IOUtils;
 import org.junit.Test;
 
@@ -499,5 +500,22 @@ public class PlantUMLClassDiagramGeneratorTest {
 		assertNotNull(result);
 		assertNotNull(expectedDiagramText);
 		assertEquals(expectedDiagramText.replaceAll("\\s+", ""), result.replaceAll("\\s+", ""));
-	}			
+	}
+
+	@Test
+	public void test0021AdditionalClass() throws Exception {
+		List<String> scanpackages = new ArrayList<>();
+		scanpackages.add("de.elnarion.test.domain.t0021.package1");
+		final PlantUMLConfig config = new PlantUMLConfigBuilder(scanpackages)
+			.withClassLoader(this.getClass().getClassLoader())
+			.withAdditionalClasses(ClassB.class)
+			.build();
+		PlantUMLClassDiagramGenerator generator = new PlantUMLClassDiagramGenerator(config);
+		String result = generator.generateDiagramText();
+		String expectedDiagramText = IOUtils
+			.toString(this.getClass().getClassLoader().getResource("0021_additional_class.txt"), "utf-8");
+		assertNotNull(result);
+		assertNotNull(expectedDiagramText);
+		assertEquals(expectedDiagramText.replaceAll("\\s+", ""), result.replaceAll("\\s+", ""));
+	}
 }
