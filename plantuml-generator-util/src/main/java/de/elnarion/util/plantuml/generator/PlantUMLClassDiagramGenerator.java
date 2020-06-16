@@ -407,10 +407,10 @@ public class PlantUMLClassDiagramGenerator {
 			for (final Method method : paramDeclaredMethods) {
 				final String methodName = method.getName();
 				// ignore normal getters and setters
-				if ((methodName.startsWith("get") || methodName.startsWith("set") || methodName.startsWith("is"))
-						&& paramDeclaredFields != null && isGetterOrSetterMethod(method, paramDeclaredFields)) {
-					continue;
-				}
+//				if ((methodName.startsWith("get") || methodName.startsWith("set") || methodName.startsWith("is"))
+//						&& paramDeclaredFields != null && isGetterOrSetterMethod(method, paramDeclaredFields)) {
+//					continue;
+//				}
 				// Do not add method if they should be ignored/removed
 				if (plantUMLConfig.isRemoveMethods())
 					continue;
