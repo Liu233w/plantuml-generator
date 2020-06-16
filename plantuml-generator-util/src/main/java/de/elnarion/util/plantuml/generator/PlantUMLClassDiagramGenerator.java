@@ -467,10 +467,14 @@ public class PlantUMLClassDiagramGenerator {
 	 * @return String - the type name without the java.lang package name
 	 */
 	private String removeJavaLangPackage(String paramTypeName) {
+	    if (paramTypeName.startsWith("[L")) {
+			paramTypeName = paramTypeName.substring("[L".length(), paramTypeName.length());
+		}
+	    if (paramTypeName.endsWith(";")) {
+			paramTypeName = paramTypeName.substring(0, paramTypeName.length() - 1);
+		}
 		if (paramTypeName.startsWith("java.lang.")) {
 			paramTypeName = paramTypeName.substring("java.lang.".length(), paramTypeName.length());
-		} else if (paramTypeName.startsWith("[Ljava.lang.")) {
-			paramTypeName = paramTypeName.substring("[Ljava.lang.".length(), paramTypeName.length());
 		}
 		return paramTypeName;
 	}
