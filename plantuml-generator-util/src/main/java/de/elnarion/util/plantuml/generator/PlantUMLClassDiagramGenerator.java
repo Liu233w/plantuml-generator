@@ -3,12 +3,7 @@ package de.elnarion.util.plantuml.generator;
 import java.io.File;
 import java.io.IOException;
 import java.lang.annotation.Annotation;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
-import java.lang.reflect.TypeVariable;
+import java.lang.reflect.*;
 import java.net.URL;
 import java.net.URLDecoder;
 import java.util.ArrayList;
@@ -426,8 +421,9 @@ public class PlantUMLClassDiagramGenerator {
 					continue;
 				String returnType = method.getReturnType().getName();
 				returnType = removeJavaLangPackage(returnType);
-				final Class<?>[] parameterTypes = method.getParameterTypes();
-				final Map<String, String> parameters = convertToParameterStringMap(parameterTypes);
+//				final Class<?>[] parameterTypes = method.getParameterTypes();
+//				final Map<String, String> parameters = convertToParameterStringMap(parameterTypes);
+				final Map<String, String> parameters = convertToParameterStringMap(method.getParameters());
 				final int modifier = method.getModifiers();
 				final VisibilityType visibilityType = getVisibility(modifier);
 				// check if method should be visible by maximum visibility
@@ -448,6 +444,19 @@ public class PlantUMLClassDiagramGenerator {
 				paramUmlClass.addMethod(umlMethod);
 			}
 		}
+	}
+
+	private Map<String, String> convertToParameterStringMap(Parameter[] parameters) {
+
+		final Map<String, String> result = new LinkedHashMap<>();
+
+		for (Parameter parameter : parameters) {
+			result.put(
+				parameter.getName(),
+				removeJavaLangPackage(parameter.getType().getName()));
+		}
+
+		return result;
 	}
 
 	/**
