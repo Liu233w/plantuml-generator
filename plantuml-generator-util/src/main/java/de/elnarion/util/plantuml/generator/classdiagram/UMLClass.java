@@ -135,6 +135,9 @@ public class UMLClass implements PlantUMLDiagramElement {
 	}
 
 	private void addStereotypes(StringBuilder builder) {
+		builder.append(" << ");
+		addClassType(false, builder);
+		builder.append(">> ");
 		if (stereotypes != null) {
 			for (String stereotype : stereotypes) {
 				builder.append(" <<");
