@@ -632,7 +632,7 @@ public class PlantUMLClassDiagramGenerator {
 				final Class<?> type = field.getType();
 				final boolean relationshipAdded = addAggregationRelationship(paramUmlClass, field);
 				if (relationshipAdded) {
-					// do nothing - skip processing
+					addFieldToUMLClass(paramUmlClass, field, type, paramDeclaredMethods);
 				} else if (includeClass(type)) {
 					final UMLRelationship relationship = new UMLRelationship(null, null, field.getName(),
 							field.getDeclaringClass().getName(), type.getName(), RelationshipType.DIRECTED_ASSOCIATION);
