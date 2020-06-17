@@ -290,7 +290,8 @@ public class PlantUMLClassDiagramGenerator {
 			return;
 		}
 		for (Constructor<?> constructor : declaredConstructors) {
-			final String constructorName = constructor.getName();
+			final String[] packageAndNames = constructor.getName().split("\\.");
+			final String constructorName = packageAndNames[packageAndNames.length-1];
 			final Map<String, String> parameters = convertToParameterStringMap(constructor.getParameters());
 			final int modifier = constructor.getModifiers();
 			final VisibilityType visibilityType = getVisibility(modifier);
