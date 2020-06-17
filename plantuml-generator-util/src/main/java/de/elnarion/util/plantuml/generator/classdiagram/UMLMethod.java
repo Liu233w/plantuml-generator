@@ -108,25 +108,23 @@ public class UMLMethod implements PlantUMLDiagramElement {
 		}
 		builder.append(PlantUMLUtil.getVisibilityText(visibilityType));
 		builder.append(name);
-		builder.append(" (");
+		builder.append("(");
 		if (parametersAndTypes != null && !parametersAndTypes.isEmpty()) {
 			Set<Entry<String, String>> entries = parametersAndTypes.entrySet();
 			boolean firstIteration = true;
 			for (Entry<String, String> entry : entries) {
 				if (!firstIteration) {
-					builder.append(",");
+					builder.append(", ");
 				}
-				builder.append(" ");
 				builder.append(entry.getKey());
-				builder.append(" : ");
+				builder.append(": ");
 				builder.append(entry.getValue());
-				builder.append(" ");
 				firstIteration = false;
 			}
 		}
 		builder.append(")");
 		if (resultType != null) {
-			builder.append(" : ");
+			builder.append(": ");
 			builder.append(resultType);
 		}
 		if (stereotypes != null) {
