@@ -277,11 +277,40 @@ public class PlantUMLClassDiagramGenerator {
 			addEnumConstants(paramClassObject, umlClass);
 		} else {
 			addFields(paramClassObject.getDeclaredFields(), paramClassObject.getDeclaredMethods(), umlClass);
+			addConstructors(paramClassObject.getDeclaredConstructors(), umlClass);
 			addMethods(paramClassObject.getDeclaredMethods(), paramClassObject.getDeclaredFields(), umlClass);
 		}
 		addSuperClassRelationship(paramClassObject, umlClass);
 		addInterfaceRelationship(paramClassObject, umlClass);
 		addAnnotationRelationship(paramClassObject, umlClass);
+	}
+
+	private void addConstructors(Constructor<?>[] declaredConstructors, UMLClass umlClass) {
+		if (declaredConstructors == null) {
+			return;
+		}
+		for (Constructor<?> constructor : declaredConstructors) {
+			final String constructorName = constructor.getName();
+			final Map<String, String> parameters = convertToParameterStringMap(constructor.getParameters());
+			final int modifier = constructor.getModifiers();
+			final VisibilityType visibilityType = getVisibility(modifier);
+			// check if method should be visible by maximum visibility
+			if (!visibilityOk(plantUMLConfig.getMaxVisibilityMethods(), visibilityType))
+				continue;
+			final ClassifierType classifierType = getClassifier(modifier);
+			if (plantUMLConfig.getMethodClassifierToIgnore().contains(classifierType))
+				continue;
+			final List<String> stereotypes = new ArrayList<>();
+			if (constructor.isAnnotationPresent(Deprecated.class)) {
+				stereotypes.add("deprecated");
+			}
+			if (Modifier.isSynchronized(modifier)) {
+				stereotypes.add("synchronized");
+			}
+			final de.elnarion.util.plantuml.generator.classdiagram.UMLMethod umlMethod = new de.elnarion.util.plantuml.generator.classdiagram.UMLMethod(
+				classifierType, visibilityType, null, constructorName, parameters, stereotypes);
+			umlClass.addMethod(umlMethod);
+		}
 	}
 
 	/**
